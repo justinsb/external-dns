@@ -1,0 +1,26 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "endpoint.go",
+        "labels.go",
+        "zz_generated.deepcopy.go",
+    ],
+    importpath = "github.com/kubernetes-incubator/external-dns/endpoint",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "endpoint_test.go",
+        "labels_test.go",
+    ],
+    embed = [":go_default_library"],
+    deps = ["//vendor/github.com/stretchr/testify/suite:go_default_library"],
+)

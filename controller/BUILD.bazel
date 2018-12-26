@@ -1,0 +1,30 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["controller.go"],
+    importpath = "github.com/kubernetes-incubator/external-dns/controller",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//plan:go_default_library",
+        "//registry:go_default_library",
+        "//source:go_default_library",
+        "//vendor/github.com/prometheus/client_golang/prometheus:go_default_library",
+        "//vendor/github.com/sirupsen/logrus:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["controller_test.go"],
+    embed = [":go_default_library"],
+    deps = [
+        "//endpoint:go_default_library",
+        "//internal/testutils:go_default_library",
+        "//plan:go_default_library",
+        "//provider:go_default_library",
+        "//registry:go_default_library",
+        "//vendor/github.com/stretchr/testify/assert:go_default_library",
+        "//vendor/github.com/stretchr/testify/require:go_default_library",
+    ],
+)

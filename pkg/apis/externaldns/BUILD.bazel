@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["types.go"],
+    importpath = "github.com/kubernetes-incubator/external-dns/pkg/apis/externaldns",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/alecthomas/kingpin:go_default_library",
+        "//vendor/github.com/sirupsen/logrus:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["types_test.go"],
+    embed = [":go_default_library"],
+    deps = [
+        "//vendor/github.com/sirupsen/logrus:go_default_library",
+        "//vendor/github.com/stretchr/testify/assert:go_default_library",
+        "//vendor/github.com/stretchr/testify/require:go_default_library",
+    ],
+)

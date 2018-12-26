@@ -1,0 +1,29 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "conflict.go",
+        "plan.go",
+        "policy.go",
+    ],
+    importpath = "github.com/kubernetes-incubator/external-dns/plan",
+    visibility = ["//visibility:public"],
+    deps = ["//endpoint:go_default_library"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "conflict_test.go",
+        "plan_test.go",
+        "policy_test.go",
+    ],
+    embed = [":go_default_library"],
+    deps = [
+        "//endpoint:go_default_library",
+        "//internal/testutils:go_default_library",
+        "//vendor/github.com/stretchr/testify/assert:go_default_library",
+        "//vendor/github.com/stretchr/testify/suite:go_default_library",
+    ],
+)
