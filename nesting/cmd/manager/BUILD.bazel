@@ -1,0 +1,24 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/kubernetes-incubator/external-dns/nesting/cmd/manager",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//nesting/pkg/apis:go_default_library",
+        "//nesting/pkg/controller:go_default_library",
+        "//nesting/pkg/webhook:go_default_library",
+        "//vendor/k8s.io/client-go/plugin/pkg/client/auth/gcp:go_default_library",
+        "@io_k8s_sigs_controller_runtime//pkg/client/config:go_default_library",
+        "@io_k8s_sigs_controller_runtime//pkg/manager:go_default_library",
+        "@io_k8s_sigs_controller_runtime//pkg/runtime/log:go_default_library",
+        "@io_k8s_sigs_controller_runtime//pkg/runtime/signals:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "manager",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)
