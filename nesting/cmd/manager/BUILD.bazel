@@ -6,13 +6,16 @@ go_library(
     importpath = "github.com/kubernetes-incubator/external-dns/nesting/cmd/manager",
     visibility = ["//visibility:private"],
     deps = [
+        "//endpoint:go_default_library",
         "//nesting/pkg/apis:go_default_library",
         "//nesting/pkg/controller:go_default_library",
         "//nesting/pkg/webhook:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
         "//vendor/k8s.io/client-go/plugin/pkg/client/auth/gcp:go_default_library",
         "@io_k8s_sigs_controller_runtime//pkg/client/config:go_default_library",
         "@io_k8s_sigs_controller_runtime//pkg/manager:go_default_library",
         "@io_k8s_sigs_controller_runtime//pkg/runtime/log:go_default_library",
+        "@io_k8s_sigs_controller_runtime//pkg/runtime/scheme:go_default_library",
         "@io_k8s_sigs_controller_runtime//pkg/runtime/signals:go_default_library",
     ],
 )
